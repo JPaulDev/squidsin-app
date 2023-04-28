@@ -1,4 +1,10 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@icons": ["components/icons"],
+      "@screens": ["screens"]
+    }
+  },
   "extends": "expo/tsconfig.base"
 }
