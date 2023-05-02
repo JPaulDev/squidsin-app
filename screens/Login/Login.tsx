@@ -30,8 +30,8 @@ export default function Login({ navigation }: Props): JSX.Element {
           className="p-4"
           accessible={true}
           accessibilityLabel="Go back"
-          accessibilityHint="Navigates to the home screen"
-          onPress={() => navigation.navigate('Home')}
+          accessibilityHint="Navigates to the splash screen"
+          onPress={() => navigation.navigate('Splash')}
         >
           <LeftArrow className="fill-black" />
         </Pressable>
