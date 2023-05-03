@@ -42,7 +42,11 @@ function Main(): JSX.Element {
           <Stack.Screen name="Home" component={Home} />
         ) : (
           <>
-            <Stack.Screen name="Splash" component={Splash} />
+            <Stack.Screen
+              name="Splash"
+              component={Splash}
+              options={{ animationTypeForReplace: 'pop' }}
+            />
             <Stack.Screen name="Login" component={Login} />
           </>
         )}

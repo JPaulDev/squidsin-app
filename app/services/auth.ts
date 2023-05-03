@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { api } from './api';
 
@@ -16,7 +16,7 @@ type LoginRequest = {
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<User, LoginRequest>({
+    logIn: builder.mutation<User, LoginRequest>({
       async queryFn(userCredentials) {
         try {
           const { email, password } = userCredentials;
@@ -35,7 +35,18 @@ export const authApi = api.injectEndpoints({
         }
       },
     }),
+    logOut: builder.mutation<null, void>({
+      async queryFn() {
+        try {
+          await signOut(auth);
+
+          return { data: null };
+        } catch (err) {
+          return { error: {} };
+        }
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLogInMutation, useLogOutMutation } = authApi;
