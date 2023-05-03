@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login, MainContainer, Splash } from '@screens';
+import { Home, Login, Splash } from '@screens';
 import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
@@ -21,7 +21,7 @@ function Main(): JSX.Element {
         }}
       >
         {isAuthenticated ? (
-          <Stack.Screen name="MainContainer" component={MainContainer} />
+          <Stack.Screen name="Home" component={Home} />
         ) : (
           <>
             <Stack.Screen name="Splash" component={Splash} />

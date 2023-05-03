@@ -10,6 +10,7 @@ module.exports = function (api) {
           alias: {
             '@icons': './components/icons',
             '@screens': './screens',
+            '@components': './components',
           },
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
