@@ -3,6 +3,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
+import { useLoginMutation } from '../../app/services/auth';
 import type { RootStackParamList } from '../../types/RootStackParamsList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -10,11 +11,12 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 const CURSOR_COLOR = '#059669';
 
 export default function Login({ navigation }: Props): JSX.Element {
-  const [username, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('test@mail.com');
+  const [password, setPassword] = useState<string>('123456');
   const [emailFocussed, setEmailFocussed] = useState<boolean>(false);
   const [passwordFocussed, setPasswordFocussed] = useState<boolean>(false);
   const [isSecureTextEntry, setIsSecureTextEntry] = useState<boolean>(true);
+  const [login] = useLoginMutation();
 
   const handleChangeIsSecureTextEntry = (value: boolean): void =>
     setIsSecureTextEntry(value);
@@ -22,10 +24,13 @@ export default function Login({ navigation }: Props): JSX.Element {
     setEmailFocussed(value);
   const handleChangePasswordFocussed = (value: boolean): void =>
     setPasswordFocussed(value);
+  const handleLogin = (): void => {
+    login({ email, password });
+  };
 
   return (
-    <View className="bg-white h-full">
-      <View className="flex items-start mb-1">
+    <View className="h-full bg-white">
+      <View className="mb-1 flex items-start">
         <Pressable
           className="p-4"
           accessible={true}
@@ -37,13 +42,13 @@ export default function Login({ navigation }: Props): JSX.Element {
         </Pressable>
       </View>
       <View className="px-4">
-        <Text className="text-xl mb-7">Welcome back to sQuidsIn!</Text>
+        <Text className="mb-7 text-xl">Welcome back to sQuidsIn!</Text>
         <Text nativeID="email-input">Email address</Text>
         <TextInput
           onChangeText={setEmail}
-          value={username}
+          value={email}
           className={clsx(
-            'border-b py-1 mb-4 border-stone-500 text-base',
+            'mb-4 border-b border-stone-500 py-1 text-base',
             emailFocussed && 'border-emerald-600'
           )}
           onFocus={() => handleChangeEmailFocussed(true)}
@@ -61,7 +66,7 @@ export default function Login({ navigation }: Props): JSX.Element {
             onChangeText={setPassword}
             value={password}
             className={clsx(
-              'border-b py-1 border-stone-500 text-base',
+              'border-b border-stone-500 py-1 text-base',
               passwordFocussed && 'border-b-emerald-600'
             )}
             onFocus={() => handleChangePasswordFocussed(true)}
@@ -94,17 +99,18 @@ export default function Login({ navigation }: Props): JSX.Element {
             </Pressable>
           )}
         </View>
-        <View className="flex items-center mt-10">
+        <View className="mt-10 flex items-center">
           <Pressable
-            className="bg-emerald-600 py-3 px-14 rounded-md shadow shadow-black"
+            className="rounded-md bg-emerald-600 px-14 py-3 shadow shadow-black"
+            onPress={handleLogin}
             android_ripple={{ color: '#ffffffc0' }}
           >
-            <Text className="text-white text-lg font-medium">Log in</Text>
+            <Text className="text-lg font-medium text-white">Log in</Text>
           </Pressable>
         </View>
-        <View className="flex items-center mt-6">
+        <View className="mt-6 flex items-center">
           <Pressable android_ripple={{ color: '#059668a2' }}>
-            <Text className="text-emerald-600 font-bold text-base px-3 py-1">
+            <Text className="px-3 py-1 text-base font-bold text-emerald-600">
               Forgot your password?
             </Text>
           </Pressable>
