@@ -1,8 +1,8 @@
 import { Text, View } from 'react-native';
 
-export default function Activity() {
+export default function Activity(): JSX.Element {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
       <Text className="text-xl">Activity</Text>
     </View>
   );
