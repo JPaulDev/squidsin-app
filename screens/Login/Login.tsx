@@ -3,7 +3,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
-import { RootStackParamList } from '../../types/RootStackParamsList';
+import type { RootStackParamList } from '../../types/RootStackParamsList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 

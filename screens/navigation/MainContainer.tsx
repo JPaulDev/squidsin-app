@@ -1,5 +1,5 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from 'types/RootStackParamsList';
+import type { RootStackParamList } from 'types/RootStackParamsList';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 //Screens

@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MainContainer, Login, Splash } from '@screens';
 import { StatusBar } from 'react-native';
-import { RootStackParamList } from './types/RootStackParamsList';
+import type { RootStackParamList } from './types/RootStackParamsList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
