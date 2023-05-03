@@ -1,12 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MainContainer, Login, Splash } from '@screens';
+import { Login, MainContainer, Splash } from '@screens';
 import { StatusBar } from 'react-native';
-import { RootStackParamList } from './types/RootStackParamsList';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
+import useAuth from './hooks/useAuth';
+import type { RootStackParamList } from './types/RootStackParamsList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export default function App(): JSX.Element {
+function Main(): JSX.Element {
+  const { isAuthenticated } = useAuth();
+
   return (
     <NavigationContainer>
       <StatusBar />
@@ -15,10 +20,23 @@ export default function App(): JSX.Element {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="MainContainer" component={MainContainer} />
+        {isAuthenticated ? (
+          <Stack.Screen name="MainContainer" component={MainContainer} />
+        ) : (
+          <>
+            <Stack.Screen name="Splash" component={Splash} />
+            <Stack.Screen name="Login" component={Login} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
+  );
+}
+
+export default function App(): JSX.Element {
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
   );
 }

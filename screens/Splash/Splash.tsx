@@ -1,7 +1,7 @@
 import { BrandLogo, Google } from '@icons';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Pressable, Text, View } from 'react-native';
-import { RootStackParamList } from '../../types/RootStackParamsList';
+import type { RootStackParamList } from '../../types/RootStackParamsList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
