@@ -14,7 +14,12 @@ const authSlice = createSlice({
     isAuthenticated: false,
     user: null,
   } as AuthState,
-  reducers: {},
+  reducers: {
+    reauthUser: (state, { payload }) => {
+      state.isAuthenticated = true;
+      state.user = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
@@ -27,5 +32,7 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+
+export const { reauthUser } = authSlice.actions;
 
 export const selectAuth = (state: RootState) => state.auth;
