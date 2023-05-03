@@ -3,7 +3,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
-import { useLoginMutation } from '../../app/services/auth';
+import { useLogInMutation } from '../../app/services/auth';
 import type { RootStackParamList } from '../../types/RootStackParamsList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -16,7 +16,7 @@ export default function Login({ navigation }: Props): JSX.Element {
   const [emailFocussed, setEmailFocussed] = useState<boolean>(false);
   const [passwordFocussed, setPasswordFocussed] = useState<boolean>(false);
   const [isSecureTextEntry, setIsSecureTextEntry] = useState<boolean>(true);
-  const [login] = useLoginMutation();
+  const [logIn] = useLogInMutation();
 
   const handleChangeIsSecureTextEntry = (value: boolean): void =>
     setIsSecureTextEntry(value);
@@ -24,8 +24,8 @@ export default function Login({ navigation }: Props): JSX.Element {
     setEmailFocussed(value);
   const handleChangePasswordFocussed = (value: boolean): void =>
     setPasswordFocussed(value);
-  const handleLogin = (): void => {
-    login({ email, password });
+  const handleLogIn = (): void => {
+    logIn({ email, password });
   };
 
   return (
@@ -102,7 +102,7 @@ export default function Login({ navigation }: Props): JSX.Element {
         <View className="mt-10 flex items-center">
           <Pressable
             className="rounded-md bg-emerald-600 px-14 py-3 shadow shadow-black"
-            onPress={handleLogin}
+            onPress={handleLogIn}
             android_ripple={{ color: '#ffffffc0' }}
           >
             <Text className="text-lg font-medium text-white">Log in</Text>
