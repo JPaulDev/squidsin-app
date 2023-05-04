@@ -1,4 +1,5 @@
-import { Eye, EyeSlash, LeftArrow } from '@icons';
+import { ButtonBack } from '@components/shared';
+import { Eye, EyeSlash } from '@icons';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import clsx from 'clsx';
 import { useState } from 'react';
@@ -31,15 +32,7 @@ export default function Login({ navigation }: Props): JSX.Element {
   return (
     <View className="h-full bg-white">
       <View className="mb-1 flex items-start">
-        <Pressable
-          className="p-4"
-          accessible={true}
-          accessibilityLabel="Go back"
-          accessibilityHint="Navigates to the splash screen"
-          onPress={() => navigation.navigate('Splash')}
-        >
-          <LeftArrow className="fill-black" />
-        </Pressable>
+        <ButtonBack navigation={navigation} />
       </View>
       <View className="px-4">
         <Text className="mb-7 text-xl">Welcome back to sQuidsIn!</Text>
