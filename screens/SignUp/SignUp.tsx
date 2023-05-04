@@ -1,10 +1,10 @@
-import { Eye, EyeSlash, LeftArrow } from '@icons';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ButtonBack } from '@components/shared';
+import { Eye, EyeSlash } from '@icons';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import clsx from 'clsx';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import type { RootStackParamList } from '../../types/RootStackParamsList';
 
@@ -15,33 +15,20 @@ const CURSOR_COLOR = '#059669';
 export default function SignUp({ navigation }: Props): JSX.Element {
   const [signUpEmail, setSignUpEmail] = useState<string>('');
   const [signUpPassword, setSignUpPassword] = useState<string>('');
-  const [displayName, setDisplayName] = useState<string>('');
+  const [fullName, setFullName] = useState<string>('');
   const [displayNameFocussed, setDisplayNameFocussed] =
     useState<boolean>(false);
   const [emailFocussed, setEmailFocussed] = useState<boolean>(false);
   const [passwordFocussed, setPasswordFocussed] = useState<boolean>(false);
   const [isSecureTextEntry, setIsSecureTextEntry] = useState<boolean>(true);
 
-  const SignUpUser = () => {
-    createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        updateProfile(user, {
-          displayName: displayName,
-        })
-          .then(() => {
-            setSignUpEmail('');
-            setSignUpPassword('');
-            setDisplayName('');
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        alert(error);
-        console.log(error);
-      });
+  const handleSignUp = async () => {
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      signUpEmail,
+      signUpPassword
+    );
+    await updateProfile(user, { displayName: fullName });
   };
 
   const handleChangeIsSecureTextEntry = (value: boolean): void =>
@@ -59,7 +46,7 @@ export default function SignUp({ navigation }: Props): JSX.Element {
         <ButtonBack navigation={navigation} />
       </View>
       <View className="px-4">
-        <Text className="mb-7 text-xl">Sign Up Here:</Text>
+        <Text className="mb-7 text-xl">Create a new account</Text>
         <Text nativeID="email-input">Email address</Text>
         <TextInput
           onChangeText={setSignUpEmail}
@@ -77,10 +64,10 @@ export default function SignUp({ navigation }: Props): JSX.Element {
           accessibilityLabelledBy="email-input"
           autoCorrect={false}
         />
-        <Text nativeID="Display-Name-input">Display Name</Text>
+        <Text nativeID="Display-Name-input">Full name</Text>
         <TextInput
-          onChangeText={(text) => setDisplayName(text)}
-          value={displayName}
+          onChangeText={setFullName}
+          value={fullName}
           className={clsx(
             'mb-4 border-b border-stone-500 py-1 text-base',
             displayNameFocussed && 'border-emerald-600'
@@ -131,9 +118,9 @@ export default function SignUp({ navigation }: Props): JSX.Element {
             </Pressable>
           )}
         </View>
-        <View className="overflow-hidden rounded-md border-b-2 border-b-stone-400 bg-emerald-600">
+        <View className="mt-10 overflow-hidden rounded-md border-b-2 border-b-stone-400 bg-emerald-600">
           <Pressable
-            onPress={SignUpUser}
+            onPress={handleSignUp}
             android_ripple={{ color: '#ffffffc0' }}
           >
             <Text className="p-3 text-center text-base font-semibold text-white">
