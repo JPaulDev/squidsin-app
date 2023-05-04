@@ -1,7 +1,7 @@
 import { Expense } from '@components/modals';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home, Login, Splash } from '@screens';
+import { Home, Login, Splash, SignUp } from '@screens';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { StatusBar } from 'react-native';
@@ -61,6 +61,7 @@ function Main(): JSX.Element {
               options={{ animationTypeForReplace: 'pop' }}
             />
             <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="SignUp" component={SignUp} />
           </>
         )}
       </Stack.Navigator>
