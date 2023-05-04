@@ -1,3 +1,4 @@
+import { Expense } from '@components/modals';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home, Login, Splash } from '@screens';
@@ -39,7 +40,19 @@ function Main(): JSX.Element {
         }}
       >
         {isAuthenticated ? (
-          <Stack.Screen name="Home" component={Home} />
+          <>
+            <Stack.Group>
+              <Stack.Screen name="Home" component={Home} />
+            </Stack.Group>
+            <Stack.Group
+              screenOptions={{
+                presentation: 'modal',
+                animation: 'fade_from_bottom',
+              }}
+            >
+              <Stack.Screen name="Expense" component={Expense} />
+            </Stack.Group>
+          </>
         ) : (
           <>
             <Stack.Screen

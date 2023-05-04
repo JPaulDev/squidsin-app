@@ -1,5 +1,5 @@
 import { Button, Text, View } from 'react-native';
-import { useLogOutMutation } from '../../../app/services/auth';
+import { useLogOutMutation } from '../../app/services/auth';
 
 export default function Account(): JSX.Element {
   const [logOut] = useLogOutMutation();
