@@ -1,10 +1,10 @@
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 import { db } from '../../firebase';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
 
-export default function GroupsScreen(): JSX.Element {
-  const [groups, setGroups] = useState<object[]>([]);
+export default function Groups(): JSX.Element {
+  const [groups, setGroups] = useState([]);
   const [newGroupName, setNewGroupName] = useState<string>('');
   const [isPressed, setIsPressed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -20,6 +20,7 @@ export default function GroupsScreen(): JSX.Element {
   useEffect(() => {
     setIsLoading(true);
     getGroups();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const createGroup = async () => {
