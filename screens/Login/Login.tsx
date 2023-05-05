@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { useLogInMutation } from '../../app/services/auth';
-import type { RootStackParamList } from '../../types/RootStackParamsList';
+import type { RootStackParamList } from '../../types/RootStackParamsList'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 

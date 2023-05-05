@@ -1,18 +1,15 @@
 import { ButtonBack } from '@components/shared';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useState, useEffect } from "react";
+import { useState,} from "react";
 import { StyleSheet, TextInput, View, Button, Text } from 'react-native';
 import type { RootStackParamList } from 'types/RootStackParamsList';
 import {db} from "../../firebase"
 import { async } from "@firebase/util"
 import {
   collection,
-  getDocs,
   addDoc,
   doc,
   serverTimestamp,
-  query,
-  where,
 } from "firebase/firestore";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Expense'>;
@@ -26,7 +23,6 @@ export default function Expense({ navigation }: Props): JSX.Element {
   const [user1,setUser1]=useState("1")
   const [user2,setUser2]=useState("2")
   const handleReset = () => {
-    
     setDescription("");
     setCost(0);
     setCostCreated("");
@@ -51,7 +47,6 @@ export default function Expense({ navigation }: Props): JSX.Element {
     
   };
 
-
   return (
     <View className="h-full bg-white">
       <ButtonBack navigation={navigation} />
@@ -72,9 +67,7 @@ export default function Expense({ navigation }: Props): JSX.Element {
         keyboardType="numeric"
       />
       <Text style={styles.itemText}>Paid by User {user1}, split with User {user2} </Text>
-
       <Button title="Submit" onPress={handleSubmit} />
-
       <Text>{!submitted ? null : costCreated}</Text>
       <View>
         <Button title="Clear" onPress={handleReset} />
