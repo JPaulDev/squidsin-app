@@ -1,17 +1,15 @@
-import { Button, Text, View, Pressable, Image } from 'react-native';
+import { Image } from 'expo-image';
+import { Button, Pressable, Text, View } from 'react-native';
 import { useLogOutMutation } from '../../app/services/auth';
-import React from 'react';
+import useAuth from '../../hooks/useAuth';
 
 export default function Account(): JSX.Element {
+  const { user } = useAuth();
   const [logOut] = useLogOutMutation();
 
   const handleLogout = (): void => {
     logOut();
   };
-
-  const username = 'JohnDoe';
-  const email = 'johndoe@example.com';
-  const profilePicture = require('../../PlaceholderProfilePicture/index.png');
 
   return (
     <View>
@@ -40,11 +38,11 @@ export default function Account(): JSX.Element {
       </View>
       <View style={{ alignItems: 'center', marginVertical: 20 }}>
         <Image
-          source={profilePicture}
+          source={user.photoURL}
           style={{ width: 100, height: 100, borderRadius: 50 }}
         />
-        <Text style={{ marginTop: 10 }}>{username}</Text>
-        <Text style={{ marginTop: 5, color: 'gray' }}>{email}</Text>
+        <Text style={{ marginTop: 10 }}>{user.displayName}</Text>
+        <Text style={{ marginTop: 5, color: 'gray' }}>{user.email}</Text>
         <Pressable style={{ marginTop: 10 }}>
           <Text style={{ color: '#007AFF' }}>sQuidsIn Pro</Text>
         </Pressable>
@@ -63,7 +61,6 @@ export default function Account(): JSX.Element {
           <Text>Passcode</Text>
         </Pressable>
       </View>
-      
       <View>
         <Button title="Log out" onPress={handleLogout} />
       </View>

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { useLogInMutation } from '../../app/services/auth';
-import type { RootStackParamList } from '../../types/RootStackParamsList'
+import type { RootStackParamList } from '../../types/RootStackParamsList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -36,7 +36,7 @@ export default function Login({ navigation }: Props): JSX.Element {
       </View>
       <View className="px-4">
         <Text className="mb-7 text-xl">Welcome back to sQuidsIn!</Text>
-        <Text nativeID="email-input">Email address</Text>
+        <Text>Email address</Text>
         <TextInput
           onChangeText={setEmail}
           value={email}
@@ -49,11 +49,10 @@ export default function Login({ navigation }: Props): JSX.Element {
           cursorColor={CURSOR_COLOR}
           inputMode="email"
           autoComplete="email"
-          accessibilityLabel="input"
-          accessibilityLabelledBy="email-input"
+          accessibilityLabel="Your email"
           autoCorrect={false}
         />
-        <Text nativeID="password-input">Password</Text>
+        <Text>Password</Text>
         <View className="relative flex justify-center">
           <TextInput
             onChangeText={setPassword}
@@ -67,15 +66,13 @@ export default function Login({ navigation }: Props): JSX.Element {
             cursorColor={CURSOR_COLOR}
             secureTextEntry={isSecureTextEntry}
             autoComplete="password"
-            accessibilityLabel="input"
-            accessibilityLabelledBy="password-input"
+            accessibilityLabel="Your password"
             autoCorrect={false}
           />
           {password && isSecureTextEntry && (
             <Pressable
               className="absolute right-0"
               onPress={() => handleChangeIsSecureTextEntry(false)}
-              accessible={true}
               accessibilityLabel="Show password"
             >
               <Eye className="fill-emerald-600" width={19} height={19} />
@@ -85,7 +82,6 @@ export default function Login({ navigation }: Props): JSX.Element {
             <Pressable
               className="absolute right-0"
               onPress={() => handleChangeIsSecureTextEntry(true)}
-              accessible={true}
               accessibilityLabel="Hide password"
             >
               <EyeSlash className="fill-emerald-600" width={20} height={20} />
