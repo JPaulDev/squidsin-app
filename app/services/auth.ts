@@ -16,12 +16,12 @@ export type User = {
   uid: string;
 };
 
-type LoginRequest = {
+type LogInRequest = {
   email: string;
   password: string;
 };
 
-type SignUpRequest = LoginRequest & {
+type SignUpRequest = LogInRequest & {
   fullName: string;
   imageURI: string;
 };
@@ -31,7 +31,7 @@ const DEFAULT_PROFILE =
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    logIn: builder.mutation<User, LoginRequest>({
+    logIn: builder.mutation<User, LogInRequest>({
       async queryFn(userCredentials) {
         try {
           const { email, password } = userCredentials;
