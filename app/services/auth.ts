@@ -7,21 +7,15 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../../firebase';
+import type { User } from '../../types/User';
 import { api } from './api';
 
-export type User = {
-  email: string;
-  displayName: string;
-  photoURL: string;
-  uid: string;
-};
-
-type LoginRequest = {
+type LogInRequest = {
   email: string;
   password: string;
 };
 
-type SignUpRequest = LoginRequest & {
+type SignUpRequest = LogInRequest & {
   fullName: string;
   imageURI: string;
 };
@@ -31,7 +25,7 @@ const DEFAULT_PROFILE =
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    logIn: builder.mutation<User, LoginRequest>({
+    logIn: builder.mutation<User, LogInRequest>({
       async queryFn(userCredentials) {
         try {
           const { email, password } = userCredentials;
@@ -43,7 +37,7 @@ export const authApi = api.injectEndpoints({
           const { uid, email: userEmail, displayName, photoURL } = user;
 
           return {
-            data: { uid, email: userEmail, displayName, photoURL },
+            data: { uid, email: userEmail, fullName: displayName, photoURL },
           };
         } catch (err) {
           return { error: { code: err.code } };
@@ -72,15 +66,14 @@ export const authApi = api.injectEndpoints({
           );
           const { uid } = user;
 
-          let photoURL: string;
+          let photoURL = DEFAULT_PROFILE;
+
           if (imageURI) {
             const response = await fetch(imageURI);
             const blob = await response.blob();
             const fileRef = ref(storage, `/users/${uid}`);
             const result = await uploadBytes(fileRef, blob);
             photoURL = await getDownloadURL(result.ref);
-          } else {
-            photoURL = DEFAULT_PROFILE;
           }
 
           await updateProfile(user, {
@@ -95,7 +88,7 @@ export const authApi = api.injectEndpoints({
           });
 
           return {
-            data: { uid, email, displayName: fullName, photoURL },
+            data: { uid, email, fullName, photoURL },
           };
         } catch (err) {
           return { error: { code: err.code } };

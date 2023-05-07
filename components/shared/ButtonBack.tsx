@@ -2,7 +2,7 @@ import { LeftArrow } from '@icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import clsx from 'clsx';
 import { Pressable } from 'react-native';
-import { RootStackParamList } from 'types/RootStackParamsList';
+import type { RootStackParamList } from 'types/RootStackParamsList';
 
 type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList>;
