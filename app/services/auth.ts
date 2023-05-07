@@ -72,15 +72,14 @@ export const authApi = api.injectEndpoints({
           );
           const { uid } = user;
 
-          let photoURL: string;
+          let photoURL = DEFAULT_PROFILE;
+
           if (imageURI) {
             const response = await fetch(imageURI);
             const blob = await response.blob();
             const fileRef = ref(storage, `/users/${uid}`);
             const result = await uploadBytes(fileRef, blob);
             photoURL = await getDownloadURL(result.ref);
-          } else {
-            photoURL = DEFAULT_PROFILE;
           }
 
           await updateProfile(user, {
