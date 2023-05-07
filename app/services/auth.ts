@@ -7,14 +7,8 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../../firebase';
+import type { User } from '../../types/User';
 import { api } from './api';
-
-export type User = {
-  email: string;
-  displayName: string;
-  photoURL: string;
-  uid: string;
-};
 
 type LogInRequest = {
   email: string;
@@ -43,7 +37,7 @@ export const authApi = api.injectEndpoints({
           const { uid, email: userEmail, displayName, photoURL } = user;
 
           return {
-            data: { uid, email: userEmail, displayName, photoURL },
+            data: { uid, email: userEmail, fullName: displayName, photoURL },
           };
         } catch (err) {
           return { error: { code: err.code } };
@@ -94,7 +88,7 @@ export const authApi = api.injectEndpoints({
           });
 
           return {
-            data: { uid, email, displayName: fullName, photoURL },
+            data: { uid, email, fullName, photoURL },
           };
         } catch (err) {
           return { error: { code: err.code } };
