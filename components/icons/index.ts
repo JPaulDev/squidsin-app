@@ -3,3 +3,4 @@ export { default as Eye } from './Eye';
 export { default as EyeSlash } from './EyeSlash';
 export { default as Google } from './Google';
 export { default as LeftArrow } from './LeftArrow';
+export { default as Receipt } from './Receipt';
