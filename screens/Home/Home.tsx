@@ -85,7 +85,7 @@ export default function Home({ navigation }: Props): JSX.Element {
               )}
               <Text
                 className={clsx(
-                  'text-xs',
+                  'text-xs text-stone-700',
                   activeTab === name && 'text-color-primary'
                 )}
               >
