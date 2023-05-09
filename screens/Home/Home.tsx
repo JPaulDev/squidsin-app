@@ -97,7 +97,7 @@ export default function Home({ navigation }: Props): JSX.Element {
       </View>
       <View
         className={clsx(
-          'absolute bottom-16 right-4 overflow-hidden rounded-full shadow-md shadow-black',
+          'absolute bottom-20 right-4 overflow-hidden rounded-full shadow-md shadow-black',
           isPressed && 'shadow shadow-black'
         )}
       >
