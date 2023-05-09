@@ -95,23 +95,25 @@ export default function Home({ navigation }: Props): JSX.Element {
           </Pressable>
         ))}
       </View>
-      <View
-        className={clsx(
-          'absolute bottom-20 right-4 overflow-hidden rounded-full shadow-md shadow-black',
-          isPressed && 'shadow shadow-black'
-        )}
-      >
-        <Pressable
-          className="flex-row items-center bg-color-primary px-5 py-3"
-          onPress={handlePress}
-          android_ripple={{ color: '#ffffff33' }}
+      {activeTab !== 'Account' && (
+        <View
+          className={clsx(
+            'absolute bottom-20 right-4 overflow-hidden rounded-full shadow-md shadow-black',
+            isPressed && 'shadow shadow-black'
+          )}
         >
-          <Receipt className="fill-white" />
-          <Text className="ml-3 text-base font-semibold text-white">
-            Add expense
-          </Text>
-        </Pressable>
-      </View>
+          <Pressable
+            className="flex-row items-center bg-color-primary px-5 py-3"
+            onPress={handlePress}
+            android_ripple={{ color: '#ffffff33' }}
+          >
+            <Receipt className="fill-white" />
+            <Text className="ml-3 text-base font-semibold text-white">
+              Add expense
+            </Text>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 }
