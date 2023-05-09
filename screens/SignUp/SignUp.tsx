@@ -10,7 +10,7 @@ import type { RootStackParamList } from '../../types/RootStackParamsList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 
-const CURSOR_COLOR = '#059669';
+const CURSOR_COLOR = '#14a582';
 
 export default function SignUp({ navigation }: Props): JSX.Element {
   const [email, setEmail] = useState<string>('');
@@ -60,7 +60,7 @@ export default function SignUp({ navigation }: Props): JSX.Element {
         value={fullName}
         className={clsx(
           'mb-6 border-b border-stone-500 py-1 text-base',
-          fullNameFocussed && 'border-emerald-600'
+          fullNameFocussed && 'border-color-primary'
         )}
         onFocus={() => handleChangeDisplayNameFocussed(true)}
         onBlur={() => handleChangeDisplayNameFocussed(false)}
@@ -89,7 +89,7 @@ export default function SignUp({ navigation }: Props): JSX.Element {
             value={email}
             className={clsx(
               'mb-4 border-b border-stone-500 py-1 text-base',
-              emailFocussed && 'border-emerald-600'
+              emailFocussed && 'border-color-primary'
             )}
             onFocus={() => handleChangeEmailFocussed(true)}
             onBlur={() => handleChangeEmailFocussed(false)}
@@ -106,7 +106,7 @@ export default function SignUp({ navigation }: Props): JSX.Element {
               value={password}
               className={clsx(
                 'border-b border-stone-500 py-1 text-base',
-                passwordFocussed && 'border-b-emerald-600'
+                passwordFocussed && 'border-color-primary'
               )}
               onFocus={() => handleChangePasswordFocussed(true)}
               onBlur={() => handleChangePasswordFocussed(false)}
@@ -123,7 +123,7 @@ export default function SignUp({ navigation }: Props): JSX.Element {
                 onPress={() => handleChangeIsSecureTextEntry(false)}
                 accessibilityLabel="Show password"
               >
-                <Eye className="fill-emerald-600" width={19} height={19} />
+                <Eye className="fill-color-primary" width={19} height={19} />
               </Pressable>
             )}
             {password && !isSecureTextEntry && (
@@ -132,7 +132,11 @@ export default function SignUp({ navigation }: Props): JSX.Element {
                 onPress={() => handleChangeIsSecureTextEntry(true)}
                 accessibilityLabel="Hide password"
               >
-                <EyeSlash className="fill-emerald-600" width={20} height={20} />
+                <EyeSlash
+                  className="fill-color-primary"
+                  width={20}
+                  height={20}
+                />
               </Pressable>
             )}
           </View>
@@ -150,7 +154,7 @@ export default function SignUp({ navigation }: Props): JSX.Element {
             </Text>
           </Pressable>
         </View>
-        <View className="flex-1 overflow-hidden rounded-md border-b-2 border-b-stone-400 bg-emerald-600">
+        <View className="flex-1 overflow-hidden rounded-md border-b-2 border-b-stone-400 bg-color-primary">
           <Pressable
             onPress={handleSignUp}
             android_ripple={{ color: '#ffffffc0' }}

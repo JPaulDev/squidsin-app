@@ -42,7 +42,7 @@ export default function Home({ navigation }: Props): JSX.Element {
         )}
       >
         <Pressable
-          className="flex-row items-center bg-emerald-600 px-5 py-3"
+          className="flex-row items-center bg-color-primary px-5 py-3"
           onPress={handlePress}
           android_ripple={{ color: '#ffffff33' }}
         >
