@@ -9,7 +9,7 @@ import type { RootStackParamList } from '../../types/RootStackParamsList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-const CURSOR_COLOR = '#059669';
+const CURSOR_COLOR = '#14a582';
 
 export default function Login({ navigation }: Props): JSX.Element {
   const [email, setEmail] = useState<string>('test@mail.com');
@@ -42,7 +42,7 @@ export default function Login({ navigation }: Props): JSX.Element {
           value={email}
           className={clsx(
             'mb-4 border-b border-stone-500 py-1 text-base',
-            emailFocussed && 'border-emerald-600'
+            emailFocussed && 'border-color-primary'
           )}
           onFocus={() => handleChangeEmailFocussed(true)}
           onBlur={() => handleChangeEmailFocussed(false)}
@@ -59,7 +59,7 @@ export default function Login({ navigation }: Props): JSX.Element {
             value={password}
             className={clsx(
               'border-b border-stone-500 py-1 text-base',
-              passwordFocussed && 'border-b-emerald-600'
+              passwordFocussed && 'border-color-primary'
             )}
             onFocus={() => handleChangePasswordFocussed(true)}
             onBlur={() => handleChangePasswordFocussed(false)}
@@ -75,7 +75,7 @@ export default function Login({ navigation }: Props): JSX.Element {
               onPress={() => handleChangeIsSecureTextEntry(false)}
               accessibilityLabel="Show password"
             >
-              <Eye className="fill-emerald-600" width={19} height={19} />
+              <Eye className="fill-color-primary" width={19} height={19} />
             </Pressable>
           )}
           {password && !isSecureTextEntry && (
@@ -84,13 +84,13 @@ export default function Login({ navigation }: Props): JSX.Element {
               onPress={() => handleChangeIsSecureTextEntry(true)}
               accessibilityLabel="Hide password"
             >
-              <EyeSlash className="fill-emerald-600" width={20} height={20} />
+              <EyeSlash className="fill-color-primary" width={20} height={20} />
             </Pressable>
           )}
         </View>
         <View className="mt-10 flex items-center">
           <Pressable
-            className="rounded-md bg-emerald-600 px-14 py-3 shadow shadow-black"
+            className="rounded-md bg-color-primary px-14 py-3 shadow shadow-black"
             onPress={handleLogIn}
             android_ripple={{ color: '#ffffffc0' }}
           >
@@ -98,8 +98,8 @@ export default function Login({ navigation }: Props): JSX.Element {
           </Pressable>
         </View>
         <View className="mt-6 flex items-center">
-          <Pressable android_ripple={{ color: '#059668a2' }}>
-            <Text className="px-3 py-1 text-base font-bold text-emerald-600">
+          <Pressable android_ripple={{ color: '#14a58376' }}>
+            <Text className="px-3 py-1 text-base font-bold text-color-primary">
               Forgot your password?
             </Text>
           </Pressable>

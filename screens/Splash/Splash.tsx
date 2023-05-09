@@ -13,7 +13,7 @@ export default function Splash({ navigation }: Props): JSX.Element {
         We make splitting the bills easy
       </Text>
       <View className="gap-5">
-        <View className="overflow-hidden rounded-md border-b-2 border-b-stone-400 bg-emerald-600">
+        <View className="overflow-hidden rounded-md border-b-2 border-b-stone-400 bg-color-primary">
           <Pressable
             onPress={() => navigation.navigate('SignUp')}
             android_ripple={{ color: '#ffffffc0' }}
