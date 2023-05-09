@@ -1,9 +1,10 @@
 import { ButtonBack } from '@components/shared';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState,} from "react";
-import { StyleSheet, TextInput, View, Button, Text } from 'react-native';
+import { StyleSheet, TextInput, View, Button, Text, TouchableOpacity } from 'react-native';
 import type { RootStackParamList } from 'types/RootStackParamsList';
 import {db} from "../../firebase"
+import { Image } from 'expo-image';
 import { async } from "@firebase/util"
 import {
   collection,
@@ -11,10 +12,15 @@ import {
   doc,
   serverTimestamp,
 } from "firebase/firestore";
+import { LoadingSpinner } from '@components/shared';
+import useAuth from '../../hooks/useAuth';
+import { useGetFriendsQuery } from '../../app/services/friends';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Expense'>;
 
 export default function Expense({ navigation }: Props): JSX.Element {
+  const { user } = useAuth();
+  const { data, isLoading } = useGetFriendsQuery(user.uid);
   const [cost, setCost] = useState<number>(0);
   const [description, setDescription] = useState("");
   const costsCollectionRef = collection(db, "costs");
@@ -22,16 +28,25 @@ export default function Expense({ navigation }: Props): JSX.Element {
   const [submitted, setSubmitted] = useState(false)
   const [user1,setUser1]=useState("1")
   const [user2,setUser2]=useState("2")
+  const [friendClicked,setFriendClicked] =useState("")
   const handleReset = () => {
     setDescription("");
     setCost(0);
     setCostCreated("");
     setSubmitted(false);
   };
+  const handleFriendClick =(friend)=>{
+    setFriendClicked(friend.fullName)
+    setUser2(friend.uid)
+    console.log(user2)
+    
+
+  }
+  console.log(user,"user auth")
   const handleSubmit = async () => {
     console.log("Submitting form");
     const usersNum = 2;
-    const user1id = doc(db, "users", user1);
+    const user1id = doc(db, "users", user.uid);
     const user2id = doc(db, "users", user2);
     try {
       addDoc(costsCollectionRef, {
@@ -47,7 +62,31 @@ export default function Expense({ navigation }: Props): JSX.Element {
     
   };
 
-  return (
+  return (<View>
+    <View style={styles.friendsContainer}>
+    <View className="h-full bg-white p-4">
+    {isLoading ? (
+      <LoadingSpinner />
+    ) : (
+      <>
+        {data.map((friend) => (
+          <TouchableOpacity
+            key={friend.uid}
+            className="mb-4 flex flex-row items-center gap-4"
+            onPress={() => handleFriendClick(friend)}
+          >
+            <Image
+              source={friend.photoURL}
+              className="h-14 w-14 rounded-full"
+            />
+            <Text className="text-base">{friend.fullName}</Text>
+          </TouchableOpacity>
+        ))}
+      </>
+    )}
+  </View>
+  </View>
+
     <View className="h-full bg-white">
       <ButtonBack navigation={navigation} />
       <Text className="text-xl">Expense</Text>
@@ -66,12 +105,13 @@ export default function Expense({ navigation }: Props): JSX.Element {
         placeholder="0.00"
         keyboardType="numeric"
       />
-      <Text style={styles.itemText}>Paid by User {user1}, split with User {user2} </Text>
+      <Text style={styles.itemText}>Paid by {user.displayName}, split with {friendClicked} </Text>
       <Button title="Submit" onPress={handleSubmit} />
       <Text>{!submitted ? null : costCreated}</Text>
       <View>
         <Button title="Clear" onPress={handleReset} />
       </View>
+    </View>
     </View>
     </View>
   );
@@ -83,6 +123,9 @@ const styles = StyleSheet.create({
     paddingTop: 80,
     paddingHorizontal: 20,
     alignItems: "center",
+  },
+  friendsContainer:{
+    maxHeight:"33%"
   },
   tasksWrapper: { paddingTop: 80, paddingHorizontal: 20, flex: 1 },
   sectionTitle: { fontSize: 24, fontWeight: "bold" },
