@@ -24,7 +24,7 @@ function Main(): JSX.Element {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
 
-        dispatch(reauthUser({ uid, email, displayName, photoURL }));
+        dispatch(reauthUser({ uid, email, fullName: displayName, photoURL }));
       }
     });
 

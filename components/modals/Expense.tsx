@@ -101,7 +101,7 @@ export default function Expense({ navigation }: Props): JSX.Element {
             keyboardType="numeric"
           />
           <Text style={styles.itemText}>
-            Paid by {user.displayName}, split with {friendClicked}
+            Paid by {user.fullName}, split with {friendClicked}
           </Text>
           <Button title="Submit" onPress={handleSubmit} />
           <Text>{!submitted ? null : costCreated}</Text>
