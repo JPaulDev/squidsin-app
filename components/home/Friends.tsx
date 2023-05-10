@@ -10,18 +10,18 @@ import {
   query,
   where,
   orderBy,
-} from "firebase/firestore";
-import { useState, useEffect } from "react";
+} from 'firebase/firestore';
+import { useState, useEffect } from 'react';
 import { db } from '../../firebase';
 
 export default function Friends(): JSX.Element {
   const { user } = useAuth();
   const { data, isLoading } = useGetFriendsQuery(user.uid);
-  const userRef = doc(db, "users", user.uid); 
-  const costsCollectionRef = collection(db, "costs");
+  const userRef = doc(db, 'users', user.uid);
+  const costsCollectionRef = collection(db, 'costs');
   const [totals, setTotals] = useState({});
-  const [isLoading1,setisLoading1]=useState(true)
-  
+  const [isLoading1, setisLoading1] = useState(true);
+
   useEffect(() => {
     if (data && data.length > 0) {
       setisLoading1(true);
@@ -29,18 +29,18 @@ export default function Friends(): JSX.Element {
         const newTotals = {};
         await Promise.all(
           data.map(async (friend) => {
-            const friendRef = doc(db, "users", friend.uid);
+            const friendRef = doc(db, 'users', friend.uid);
             const qt = query(
               costsCollectionRef,
-              where("userPaid", "==", userRef),
-              where("userSplitWith", "==", friendRef),
-              orderBy("timestamp", "desc")
+              where('userPaid', '==', userRef),
+              where('userSplitWith', '==', friendRef),
+              orderBy('timestamp', 'desc')
             );
             const qts = query(
               costsCollectionRef,
-              where("userPaid", "==", friendRef),
-              where("userSplitWith", "==", userRef),
-              orderBy("timestamp", "desc")
+              where('userPaid', '==', friendRef),
+              where('userSplitWith', '==', userRef),
+              orderBy('timestamp', 'desc')
             );
             const querySnapshotOwe = await getDocs(qt); // owing
             const querySnapshotDue = await getDocs(qts); // due
@@ -63,9 +63,14 @@ export default function Friends(): JSX.Element {
 
   return (
     <View className="h-full bg-white p-4">
+      <Text className="text-xl" style={{ fontWeight: 'bold' }}>
+          Friends
+        </Text>
       {isLoading ? (
         <LoadingSpinner />
-      ) : ( isLoading1 ? (<LoadingSpinner />) :(
+      ) : isLoading1 ? (
+        <LoadingSpinner />
+      ) : (
         <>
           {data.map((friend) => (
             <View
@@ -78,12 +83,11 @@ export default function Friends(): JSX.Element {
               />
               <Text className="text-base">{friend.fullName}</Text>
 
-              
-              <Text className="text-base">Balance:  {totals[friend.uid]}</Text>
+              <Text className="text-base">Balance: {totals[friend.uid]}</Text>
             </View>
           ))}
         </>
-      ))}
+      )}
     </View>
   );
 }

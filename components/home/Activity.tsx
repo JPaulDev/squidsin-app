@@ -71,7 +71,9 @@ export default function Activity(): JSX.Element {
   return (
     <ScrollView>
       <View>
-        <Text className="text-xl">Activity</Text>
+        <Text className="text-xl" style={{ fontWeight: 'bold' }}>
+          Activity
+        </Text>
         <View style={styles.container}>
           <Text style={styles.title}>Costs posted by user</Text>
           <View>
@@ -94,7 +96,7 @@ export default function Activity(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 15,
     paddingTop: 50,
   },
