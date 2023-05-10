@@ -97,11 +97,106 @@ export default function Activity(): JSX.Element {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#C9EFFFF",
-    marginTop: 50,
+    flex: 1,
+    backgroundColor: "#F5F5F5",
+    paddingHorizontal: 20,
+    paddingTop: 50,
   },
-  title: { fontSize: 20 },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  card: {
+    marginTop: 10,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    elevation: 3,
+  },
 });
+
+Note that I kept the styles for card
+User
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+});
+
+add thin black border
+ChatGPT
+
+To add a thin black border to the CostCard, you can add a borderWidth property to the card style in your StyleSheet.create() function. Here's an updated version of the styles object:
+
+php
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+});
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F5F5F5",
+    paddingHorizontal: 15,
+    paddingTop: 50,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  cardContainer: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    elevation: 3,
+  },
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#000000",
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+});
+
 
 
 

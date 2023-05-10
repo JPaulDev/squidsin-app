@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 const CostCard = ({ cost, description, userID, name, time }) => {
   return (
@@ -15,10 +15,12 @@ const CostCard = ({ cost, description, userID, name, time }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#FFB3CBFF",
+    backgroundColor: '#FFFFFF',
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#000000',
   },
   text: {
     fontSize: 16,
