@@ -41,7 +41,7 @@ export default function Account(): JSX.Element {
           source={user.photoURL}
           style={{ width: 100, height: 100, borderRadius: 50 }}
         />
-        <Text style={{ marginTop: 10 }}>{user.fullName}</Text>
+        <Text style={{ marginTop: 10 }}>{user.displayName}</Text>
         <Text style={{ marginTop: 5, color: 'gray' }}>{user.email}</Text>
         <Pressable style={{ marginTop: 10 }}>
           <Text style={{ color: '#007AFF' }}>sQuidsIn Pro</Text>
