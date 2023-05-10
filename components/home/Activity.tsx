@@ -1,5 +1,6 @@
 import CostCard from "./CostCard";
 import {db} from "../../firebase"
+import useAuth from '../../hooks/useAuth';
 import {
   collection,
   getDocs,
@@ -8,25 +9,24 @@ import {
   query,
   where,
   orderBy,
+  or,
 } from "firebase/firestore";
 import { StyleSheet, View, Text,ScrollView  } from 'react-native'; 
 import { useState, useEffect } from "react";
 
 export default function Activity(): JSX.Element {
+  const { user } = useAuth(); 
+  const userRef = doc(db, "users", user.uid) 
   const costsCollectionRef = collection(db, "costs");
-  const [currentUser, setCurrentUser] = useState("1");
-  const userRef = doc(db, "users", currentUser);
   const q = query(
     costsCollectionRef,
-    where("userPaid", "==", userRef),
+    or(where("userPaid", "==", userRef), where("userSplitWith", "==", userRef)),
     orderBy("timestamp", "desc")
   );
   const [costCard, setCostCard] = useState([]);
   useEffect(() => {
     const getCosts = async () => {
       const querySnapshot = await getDocs(q);
-      const currentUserName = await getDoc(doc(db, "users", currentUser));
-      const nameDataCurrent = currentUserName.data().name;
       const costData = [];
       await Promise.all(
         querySnapshot.docs.map(async (docu) => {
@@ -35,8 +35,15 @@ export default function Activity(): JSX.Element {
             "users",
             docu.data().userSplitWith.id
           );
+          const userPaidRef = doc(
+            db,
+            "users",
+            docu.data().userPaid.id
+          );
           const userSplitSnapshot = await getDoc(userSplitWithRef);
-          const nameData = userSplitSnapshot.data().name;
+          const nameDataSplit = userSplitSnapshot.data().fullName;
+          const userPaidSnapshot = await getDoc(userPaidRef);
+          const nameDataPaid = userPaidSnapshot.data().fullName;
           const descData = docu.data().description;
           const costData1 = docu.data().cost;
           const timeDataDate = docu
@@ -49,21 +56,20 @@ export default function Activity(): JSX.Element {
             .toLocaleTimeString();
           const timeDate = timeDataTime + " " + timeDataDate;
           console.log(timeDate);
-          const usersCostID = currentUser;
+          const usersCostID = user.uid;
           costData.push({
             descData,
             costData1,
             timeDate,
             usersCostID,
-            nameData,
-            nameDataCurrent,
+            nameDataSplit,
+            nameDataPaid,
           });
         })
       );
       setCostCard(costData);
     };
     getCosts();
-    console.log(costCard, "costCard");
   }, []);
 
   return (
@@ -78,8 +84,8 @@ export default function Activity(): JSX.Element {
             key={index}
             cost={item.costData1}
             description={item.descData}
-            userID={item.nameDataCurrent}
-            name={item.nameData}
+            userID={item.nameDataPaid}
+            name={item.nameDataSplit}
             time={item.timeDate}
           />
         ))}
