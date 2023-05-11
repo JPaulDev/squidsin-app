@@ -1,18 +1,18 @@
 import { LoadingSpinner } from '@components/shared';
 import { Image } from 'expo-image';
-import { Text, View } from 'react-native';
-import { useGetFriendsQuery } from '../../app/services/friends';
-import useAuth from '../../hooks/useAuth';
 import {
   collection,
-  getDocs,
   doc,
+  getDocs,
+  orderBy,
   query,
   where,
-  orderBy,
 } from 'firebase/firestore';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
+import { useGetFriendsQuery } from '../../app/services/friends';
 import { db } from '../../firebase';
+import useAuth from '../../hooks/useAuth';
 
 export default function Friends(): JSX.Element {
   const { user } = useAuth();
@@ -59,13 +59,12 @@ export default function Friends(): JSX.Element {
       };
       getTotals();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (
     <View className="h-full bg-white p-4">
-      <Text className="text-xl" style={{ fontWeight: 'bold' }}>
-          Friends
-        </Text>
+      <Text className="mb-3 text-2xl font-bold">Friends</Text>
       {isLoading ? (
         <LoadingSpinner />
       ) : isLoading1 ? (
@@ -75,14 +74,15 @@ export default function Friends(): JSX.Element {
           {data.map((friend) => (
             <View
               key={friend.uid}
-              className="mb-4 flex flex-row items-center gap-4"
+              className="mb-4 flex-row items-center justify-between"
             >
-              <Image
-                source={friend.photoURL}
-                className="h-14 w-14 rounded-full"
-              />
-              <Text className="text-base">{friend.fullName}</Text>
-
+              <View className="flex-row items-center gap-4">
+                <Image
+                  source={friend.photoURL}
+                  className="h-14 w-14 rounded-full"
+                />
+                <Text className="text-base">{friend.fullName}</Text>
+              </View>
               <Text className="text-base">Balance: {totals[friend.uid]}</Text>
             </View>
           ))}

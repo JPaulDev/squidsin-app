@@ -17,7 +17,7 @@ export default function ButtonBack({ navigation, style }: Props): JSX.Element {
       accessibilityHint="Navigate back to the previous screen"
       onPress={() => navigation.goBack()}
     >
-      <LeftArrow className="fill-black" />
+      <LeftArrow className="fill-stone-700" />
     </Pressable>
   );
 }

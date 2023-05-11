@@ -1,7 +1,7 @@
 import { Expense } from '@components/modals';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home, Login, SignUp, Splash } from '@screens';
+import { Home, Login, PaidBy, SignUp, Splash } from '@screens';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { StatusBar } from 'react-native';
@@ -43,6 +43,7 @@ function Main(): JSX.Element {
           <>
             <Stack.Group>
               <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="PaidBy" component={PaidBy} />
             </Stack.Group>
             <Stack.Group
               screenOptions={{
