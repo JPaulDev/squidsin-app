@@ -86,9 +86,9 @@ export default function Groups(): JSX.Element {
             return (
               <View key={group.id} style={styles.group}>
                 <Text style={styles.groupName}>{group.group_name}</Text>
-                <Text style={styles.members}>
-                  Members: {Object.keys(group.members)}
-                </Text>
+                {Object.keys(group.members).map((member) => {
+                  return <Text key={member}>{member}</Text>;
+                })}
               </View>
             );
           })}
