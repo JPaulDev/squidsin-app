@@ -1,18 +1,18 @@
-import CostCard from './CostCard';
-import { db } from '../../firebase';
-import useAuth from '../../hooks/useAuth';
 import {
   collection,
-  getDocs,
-  getDoc,
   doc,
+  getDoc,
+  getDocs,
+  or,
+  orderBy,
   query,
   where,
-  orderBy,
-  or,
 } from 'firebase/firestore';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { db } from '../../firebase';
+import useAuth from '../../hooks/useAuth';
+import CostCard from './CostCard';
 
 export default function Activity(): JSX.Element {
   const { user } = useAuth();
@@ -71,11 +71,8 @@ export default function Activity(): JSX.Element {
   return (
     <ScrollView>
       <View>
-        <Text className="text-xl" style={{ fontWeight: 'bold' }}>
-          Activity
-        </Text>
+        <Text className="p-4 text-2xl font-bold">Activity</Text>
         <View style={styles.container}>
-          <Text style={styles.title}>Costs posted by user</Text>
           <View>
             {costCard.map((item, index) => (
               <CostCard
@@ -98,7 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 15,
-    paddingTop: 50,
+    paddingTop: 10,
   },
   title: {
     fontSize: 28,

@@ -30,7 +30,7 @@ const TAB_BUTTONS = [
 ];
 
 export default function Home({ navigation }: Props): JSX.Element {
-  const [activeTab, setActiveTab] = useState<string>('Groups');
+  const [activeTab, setActiveTab] = useState<string>('Account');
   const [isPressed, setIsPressed] = useState<boolean>(false);
   const { user } = useAuth();
 
